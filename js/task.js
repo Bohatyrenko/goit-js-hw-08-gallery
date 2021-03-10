@@ -22,21 +22,17 @@ const makeItemGallery = ({ preview, original, description }) => {
 
   const itemLink = document.createElement("a");
   itemLink.classList.add("gallery__link");
-  itemLink.href =
-    "https://cdn.pixabay.com/photo/2010/12/13/10/13/tulips-2546_1280.jpg";
+  itemLink.href = `${original}`;
 
   const itemImage = document.createElement("img");
   itemImage.classList.add("gallery__image");
-  itemImage.setAttribute(
-    "src",
-    "https://cdn.pixabay.com/photo/2010/12/13/10/13/tulips-2546__340.jpg"
-  );
-  itemImage.dataset.source =
-    "https://cdn.pixabay.com/photo/2010/12/13/10/13/tulips-2546_1280.jpg";
-  itemImage.setAttribute("alt", "Tulips");
+  itemImage.src = `${preview}`;
+  itemImage.dataset.source = `${original}`;
+  itemImage.alt = `${description}`;
 
   itemLink.append(itemImage);
   itemCard.append(itemLink);
+  return itemCard;
 };
 
 console.log(makeItemGallery());
