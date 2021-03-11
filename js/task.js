@@ -1,38 +1,35 @@
-{
-  /* <li class="gallery__item">
-  <a
-    class="gallery__link"
-    href="https://cdn.pixabay.com/photo/2010/12/13/10/13/tulips-2546_1280.jpg"
-  >
-    <img
-      class="gallery__image"
-      src="https://cdn.pixabay.com/photo/2010/12/13/10/13/tulips-2546__340.jpg"
-      data-source="https://cdn.pixabay.com/photo/2010/12/13/10/13/tulips-2546_1280.jpg"
-      alt="Tulips"
-    />
-  </a>
-</li>; */
-}
 import gallery from "./gallery-items.js";
-console.log(gallery);
 
-const makeItemGallery = ({ preview, original, description }) => {
-  const itemCard = document.createElement("li");
-  itemCard.classList.add("gallery__item");
+console.log(makeItemsGallery(gallery));
 
-  const itemLink = document.createElement("a");
-  itemLink.classList.add("gallery__link");
-  itemLink.href = `${original}`;
+const galleryList = document.querySelector(".js-gallery");
+const makeCardsGallery = makeItemsGallery(gallery);
+galleryList.insertAdjacentHTML("beforeend", makeCardsGallery);
 
-  const itemImage = document.createElement("img");
-  itemImage.classList.add("gallery__image");
-  itemImage.src = `${preview}`;
-  itemImage.dataset.source = `${original}`;
-  itemImage.alt = `${description}`;
+galleryList.addEventListener("click", onItemGalleryClick);
 
-  itemLink.append(itemImage);
-  itemCard.append(itemLink);
-  return itemCard;
-};
+function makeItemsGallery(gallery) {
+  return gallery
+    .map(({ preview, original, description }) => {
+      return `
+    <li class="gallery__item">
+      <a
+        class="gallery__link"
+        href="${original}"
+      >
+        <img
+          class="gallery__image"
+          src="${preview}"
+          data-source="${original}"
+          alt="${description}"
+        />
+      </a>
+    </li>
+  `;
+    })
+    .join("");
+}
 
-console.log(makeItemGallery());
+function onItemGalleryClick(e) {
+  console.log(e.target);
+}
