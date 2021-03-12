@@ -1,13 +1,15 @@
 import gallery from "./gallery-items.js";
 
-console.log(makeItemsGallery(gallery));
+// console.log(makeItemsGallery(gallery));
 
 const galleryList = document.querySelector(".js-gallery");
-const makeCardsGallery = makeItemsGallery(gallery);
-galleryList.insertAdjacentHTML("beforeend", makeCardsGallery);
+const openModalRef = document.querySelector(".lightbox");
+const imageInModal = document.querySelector(".lightbox__image");
+const closeModalBtn = document.querySelector(".lightbox__button");
+const itemImage = document.querySelector(".gallery__image");
+const itemLink = document.querySelector(".gallery__link");
 
-galleryList.addEventListener("click", onItemGalleryClick);
-
+/**Функция создания разметки галереи */
 function makeItemsGallery(gallery) {
   return gallery
     .map(({ preview, original, description }) => {
@@ -31,5 +33,28 @@ function makeItemsGallery(gallery) {
 }
 
 function onItemGalleryClick(e) {
-  console.log(e.target);
+  if (!e.target.classList(".gallery__image")) {
+    return;
+  }
 }
+
+function openModalFn() {
+  openModalRef.classList.add(".lightbox.is-open");
+}
+
+function onDefaultLink(e) {
+  e.preventDefault();
+}
+
+function imageInModalFn({ src, alt }) {
+  imageInModal.src = `${src}`;
+  imageInModal.alt = `${alt}`;
+}
+/**Вешает гроздь в разметку index */
+const makeCardsGallery = makeItemsGallery(gallery);
+galleryList.insertAdjacentHTML("beforeend", makeCardsGallery);
+
+/**Слушатели событий */
+galleryList.addEventListener("click", onItemGalleryClick);
+openModalRef.addEventListener("click", openModalFn);
+itemLink.addEventListener("click", onDefaultLink);
