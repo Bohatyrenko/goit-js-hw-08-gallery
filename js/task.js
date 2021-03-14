@@ -24,6 +24,7 @@ const makeGallery = gallery.map(({ preview, original, description }) => {
 </li>
 `;
 });
+
 function openModalFn(e) {
   e.preventDefault();
   if (e.target.nodeName === "IMG") {
@@ -42,6 +43,14 @@ function onPressArrow(e) {
   }
   if (e.key === "ArrowRight" && activeIndex < gallery.length - 1) {
     activeIndex += 1;
+    imgModalRef.src = gallery[activeIndex].original;
+  }
+  if (e.key === "ArrowLeft" && activeIndex === 0) {
+    activeIndex = gallery.length - 1;
+    imgModalRef.src = gallery[activeIndex].original;
+  }
+  if (e.key === "ArrowRight" && activeIndex === gallery.length - 1) {
+    activeIndex = 0;
     imgModalRef.src = gallery[activeIndex].original;
   }
 }
